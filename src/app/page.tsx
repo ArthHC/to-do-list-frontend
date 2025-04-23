@@ -6,6 +6,7 @@ import { getToDoList } from '@/services/api';
 type Task = {
   id: number;
   title: string;
+  creationDate: Date;
 };
 
 export default function HomePage() {
