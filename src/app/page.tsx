@@ -1,7 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { getToDoList, createToDo, deleteToDo } from '@/services/api';
+import { useEffect, useState } from "react";
+import { getToDoList, createToDo, deleteToDo } from "@/services/api";
+import { TrashIcon } from '@heroicons/react/24/outline';
 
 type Task = {
   createdAt: Date;
@@ -9,17 +10,28 @@ type Task = {
   title: string;
 };
 
+const abc = [
+  {
+    createdAt: new Date(),
+    id: 1,
+    title: "Tarefa 1",
+  },
+];
+
 export default function HomePage() {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [newTaskTitle, setNewTaskTitle] = useState('');
+  const [newTaskTitle, setNewTaskTitle] = useState("");
 
   useEffect(() => {
     getToDoList()
       .then((todos) => {
-        console.log('Tarefas:', todos);
+        console.log("Tarefas:", todos);
         setTasks(todos.tasks);
       })
-      .catch((error) => console.error('Erro ao buscar tarefas:', error));
+      .catch((error) => {
+        console.error("Erro ao buscar tarefas:", error);
+        setTasks(abc);
+      });
   }, []);
 
   const handleAddTask = async () => {
@@ -27,10 +39,8 @@ export default function HomePage() {
 
     const newTask = await createToDo({ title: newTaskTitle });
     setTasks((prevTasks) => [...prevTasks, newTask]);
-    setNewTaskTitle('');
-    getToDoList()
-      .then((todos) => setTasks(todos.tasks)
-      )
+    setNewTaskTitle("");
+    getToDoList().then((todos) => setTasks(todos.tasks));
   };
 
   const handleDeleteTask = async (id: number) => {
@@ -38,39 +48,42 @@ export default function HomePage() {
       await deleteToDo(id);
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
     } catch (error) {
-      console.error('Erro ao deletar tarefa:', error);
+      console.error("Erro ao deletar tarefa:", error);
     }
   };
 
   return (
     <div className="to-do-container">
-      <h1 className="text-2xl font-bold mb-4">Minha To-Do List</h1>
+      <h1 className="text-2xl font-bold mb-4">Minhas tarefas</h1>
 
-      <div className="mb-4">
+      <div className="mb-4 w-1/2 flex gap-2">
         <input
           type="text"
           value={newTaskTitle}
           onChange={(e) => setNewTaskTitle(e.target.value)}
           placeholder="Digite uma nova tarefa"
-          className="border p-2 mr-2"
+          className="border p-2 mr-2 rounded-[0.9vw] w-full"
         />
         <button
           onClick={handleAddTask}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+          className="bg-cyan-500 text-white px-4 py-2 border border-blue-200 rounded-[0.9vw]"
         >
           Adicionar
         </button>
       </div>
 
-      <ul className="flex flex-col gap-2">
+      <ul className="flex flex-col gap-2 w-auto">
         {tasks.map((task) => (
-          <li key={task.id} className="flex justify-between gap-4">
+          <li
+            key={task.id}
+            className="flex justify-between gap-4 p-4 rounded shadow list-to-do"
+          >
             <span>{task.title}</span>
             <button
               onClick={() => handleDeleteTask(task.id)}
-              className="bg-red-500 text-white px-2 py-1 rounded"
+              className="text-red-500 hover:text-red-700"
             >
-              Deletar
+              <TrashIcon className="h-6 w-6 cursor-pointer" />
             </button>
           </li>
         ))}
