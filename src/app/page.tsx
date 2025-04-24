@@ -1,6 +1,6 @@
 "use client";
 
-import { /*useEffect,*/ useState } from "react";
+import { useEffect, useState } from "react";
 import { getToDoList, createToDo, deleteToDo } from "@/services/api";
 import { TrashIcon } from '@heroicons/react/24/outline';
 
@@ -10,29 +10,20 @@ type Task = {
   title: string;
 };
 
-const abc = [
-  {
-    createdAt: new Date(),
-    id: 1,
-    title: "Tarefa 1",
-  },
-];
-
 export default function HomePage() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState("");
 
-  // useEffect(() => {
-  //   getToDoList()
-  //     .then((todos) => {
-  //       console.log("Tarefas:", todos);
-  //       setTasks(todos.tasks);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Erro ao buscar tarefas:", error);
-  //       setTasks(abc);
-  //     });
-  // }, []);
+  useEffect(() => {
+    getToDoList()
+      .then((todos) => {
+        console.log("Tarefas:", todos);
+        setTasks(todos.tasks);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar tarefas:", error);
+      });
+  }, []);
 
   const handleAddTask = async () => {
     if (!newTaskTitle.trim()) return;
@@ -47,7 +38,6 @@ export default function HomePage() {
     try {
       await deleteToDo(id);
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
-      setTasks(abc);
     } catch (error) {
       console.error("Erro ao deletar tarefa:", error);
     }
