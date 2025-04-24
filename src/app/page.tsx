@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getToDoList, createToDo } from '@/services/api';
+import { getToDoList, createToDo, deleteToDo } from '@/services/api';
 
 type Task = {
   createdAt: Date;
@@ -28,12 +28,23 @@ export default function HomePage() {
     const newTask = await createToDo({ title: newTaskTitle });
     setTasks((prevTasks) => [...prevTasks, newTask]);
     setNewTaskTitle('');
+    getToDoList()
+      .then((todos) => setTasks(todos.tasks)
+      )
+  };
+
+  const handleDeleteTask = async (id: number) => {
+    try {
+      await deleteToDo(id);
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+    } catch (error) {
+      console.error('Erro ao deletar tarefa:', error);
+    }
   };
 
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Minha To-Do List</h1>
-      <h1 className="text-2xl font-bold mb-4">Teste</h1>
 
       <div className="mb-4">
         <input
@@ -53,7 +64,15 @@ export default function HomePage() {
 
       <ul>
         {tasks.map((task) => (
-          <li key={task.id}>{task.title}</li>
+          <li key={task.id} className="flex items-center justify-between">
+            <span>{task.title}</span>
+            <button
+              onClick={() => handleDeleteTask(task.id)}
+              className="bg-red-500 text-white px-2 py-1 rounded"
+            >
+              Deletar
+            </button>
+          </li>
         ))}
       </ul>
     </div>

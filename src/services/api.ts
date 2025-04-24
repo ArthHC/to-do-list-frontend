@@ -16,3 +16,15 @@ export async function createToDo(data: { title: string }) {
 
   return res.json();
 }
+
+export async function deleteToDo(id: number) {
+  const res = await fetch(`${API_URL}/todos/${id}`, {
+    method: 'DELETE',
+  });
+
+  if (!res.ok) {
+    throw new Error('Erro ao deletar a tarefa');
+  }
+
+  return res.json();
+}
