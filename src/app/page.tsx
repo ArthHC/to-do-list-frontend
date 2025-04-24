@@ -10,8 +10,6 @@ type Task = {
 };
 
 export default function HomePage() {
-  console.log('HomePage component rendered');
-  console.log('API_URL', process.env.NEXT_PUBLIC_API_URL);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState('');
 
