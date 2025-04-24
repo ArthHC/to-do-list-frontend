@@ -14,7 +14,9 @@ export default function HomePage() {
   const [newTaskTitle, setNewTaskTitle] = useState('');
 
   useEffect(() => {
-    getToDoList().then(setTasks);
+    getToDoList()
+      .then(setTasks)
+      .catch((error) => console.error('Erro ao buscar tarefas:', error));
   }, []);
 
   const handleAddTask = async () => {
