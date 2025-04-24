@@ -34,8 +34,8 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'docker_cred', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
                     bat """
                         docker login -u %DOCKERHUB_USERNAME% -p %DOCKERHUB_PASSWORD%
-                        docker tag to-do-list-server:1.0 %DOCKERHUB_USERNAME%/to-do-list-server:1.0
-                        docker push %DOCKERHUB_USERNAME%/to-do-list-server:1.0
+                        docker tag to-do-list-app:1.0 %DOCKERHUB_USERNAME%/to-do-list-app:1.0
+                        docker push %DOCKERHUB_USERNAME%/to-do-list-app:1.0
                         docker logout
                     """
                 }
