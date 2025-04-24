@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { /*useEffect,*/ useState } from "react";
 import { getToDoList, createToDo, deleteToDo } from "@/services/api";
 import { TrashIcon } from '@heroicons/react/24/outline';
 
