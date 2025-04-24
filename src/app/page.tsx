@@ -43,7 +43,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="p-6">
+    <div className="to-do-container">
       <h1 className="text-2xl font-bold mb-4">Minha To-Do List</h1>
 
       <div className="mb-4">
@@ -62,9 +62,9 @@ export default function HomePage() {
         </button>
       </div>
 
-      <ul>
+      <ul className="flex flex-col gap-2">
         {tasks.map((task) => (
-          <li key={task.id} className="flex items-center justify-between">
+          <li key={task.id} className="flex justify-between gap-4">
             <span>{task.title}</span>
             <button
               onClick={() => handleDeleteTask(task.id)}
