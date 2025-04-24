@@ -15,7 +15,7 @@ export default function HomePage() {
 
   useEffect(() => {
     getToDoList()
-      .then(setTasks)
+      .then((todos) => console.log('Tarefas:', todos))
       .catch((error) => console.error('Erro ao buscar tarefas:', error));
   }, []);
 
