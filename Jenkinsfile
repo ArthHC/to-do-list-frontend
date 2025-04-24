@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         PATH = "C:/Program Files/nodejs/;${env.PATH}"
+        NEXT_PUBLIC_API_URL = "http://localhost:3000"
     }
     stages {
         stage('checkout') {
