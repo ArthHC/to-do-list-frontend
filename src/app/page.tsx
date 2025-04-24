@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import { getToDoList, createToDo } from '@/services/api';
 
 type Task = {
+  createdAt: Date;
   id: number;
   title: string;
-  creationDate: Date;
 };
 
 export default function HomePage() {
@@ -15,7 +15,10 @@ export default function HomePage() {
 
   useEffect(() => {
     getToDoList()
-      .then((todos) => console.log('Tarefas:', todos))
+      .then((todos) => {
+        console.log('Tarefas:', todos);
+        setTasks(todos.tasks);
+      })
       .catch((error) => console.error('Erro ao buscar tarefas:', error));
   }, []);
 
