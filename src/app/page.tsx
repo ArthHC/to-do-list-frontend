@@ -30,6 +30,7 @@ export default function HomePage() {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Minha To-Do List</h1>
+      <h1 className="text-2xl font-bold mb-4">Teste</h1>
 
       <div className="mb-4">
         <input
