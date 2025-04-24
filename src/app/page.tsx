@@ -17,7 +17,6 @@ export default function HomePage() {
   useEffect(() => {
     getToDoList()
       .then((todos) => {
-        console.log("Tarefas:", todos);
         setTasks(todos.tasks);
       })
       .catch((error) => {
@@ -57,7 +56,7 @@ export default function HomePage() {
         />
         <button
           onClick={handleAddTask}
-          className="bg-cyan-500 text-white px-4 py-2 border border-blue-200 rounded-[0.9vw]"
+          className="bg-cyan-500 text-white px-4 py-2 border border-blue-200 rounded-[0.9vw] cursor-pointer hover:bg-cyan-600 transition-colors duration-300"
         >
           Adicionar
         </button>
