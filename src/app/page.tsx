@@ -22,17 +22,17 @@ export default function HomePage() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState("");
 
-  useEffect(() => {
-    getToDoList()
-      .then((todos) => {
-        console.log("Tarefas:", todos);
-        setTasks(todos.tasks);
-      })
-      .catch((error) => {
-        console.error("Erro ao buscar tarefas:", error);
-        setTasks(abc);
-      });
-  }, []);
+  // useEffect(() => {
+  //   getToDoList()
+  //     .then((todos) => {
+  //       console.log("Tarefas:", todos);
+  //       setTasks(todos.tasks);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Erro ao buscar tarefas:", error);
+  //       setTasks(abc);
+  //     });
+  // }, []);
 
   const handleAddTask = async () => {
     if (!newTaskTitle.trim()) return;
@@ -47,6 +47,7 @@ export default function HomePage() {
     try {
       await deleteToDo(id);
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+      setTasks(abc);
     } catch (error) {
       console.error("Erro ao deletar tarefa:", error);
     }
